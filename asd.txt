@@ -1,0 +1,6 @@
+
+/*es el que maneja dependencias
+maneja toda la informacion que tiene la app
+--- iniciar   $ npm install express --save
+--- crear   $ npm install express --save
+*/
