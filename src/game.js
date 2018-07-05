@@ -1,8 +1,13 @@
+const fs = require('fs')
+const readWords = require('./word-reader.js')
+
 class Game {
 	constructor() {
-		this.id = 0;
-		this.leftAttempts = 5;
-	}
+		this.index = 1;
+		/*Dictionary.getWord().then(word => this.word = word)*/
+		/*this.word = */
+
+	}	
 
 	static create() {
 		return new Promise((resolve, reject) => {
@@ -11,6 +16,7 @@ class Game {
         	hint: '_ _ _ _ A',
         	leftAttempts: 5
 		}
+
     	if(Object.keys(json).length != 0) {
 			return resolve(json)		
     	}
@@ -21,11 +27,18 @@ class Game {
 	}	
 
 	static save(data) {
-		return new Promise((resolve,reject) => {
-			var map = new Map();
-			map.set(data['id'],data);
-			return resolve(console.log(map))
-		})
+		console.log(data)
+		let map = new Map().set(data['id'],data)
+		var myJsonString = JSON.stringify([...map]);
+		fs.writeFileSync('./assets/saved-game.json',myJsonString)
+	}
+
+	static getWord() {
+		return readWords({path:'./assets/es-ES.dic'})
+			.then(totalWords => {
+			  const index =  Math.floor(Math.random() * (totalWords.length + 1));
+			  return totalWords[index];
+			})
 	}
 }
 

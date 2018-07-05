@@ -5,6 +5,8 @@ const Game = require('./src/game.js')
 
 Dictionary.getWord().then(word => console.log('word: ', word))
 
+/*var Game = new Gam();*/
+
 app.get('/game', (req, res) => {
     Game.create()
         .then(game => {
