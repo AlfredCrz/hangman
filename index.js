@@ -2,14 +2,19 @@ const express = require('express')
 const app = express()
 const Dictionary = require('./src/dictionary.js')
 const Game = require('./src/game.js')
+let data = require('./assets/saved-game.json')
+console.log(data)
 
-Dictionary.getWord().then(word => console.log('word: ', word))
+let word;
+let increment = 0;
 
 app.get('/game', (req, res) => {
-    Game.create()
+    increment++;
+    Dictionary.getWord().then(data =>word = data)
+    Game.create(increment, word)
         .then(game => {
             res.send(game)  
-            Game.save(game)          
+            Game.save(game,data)          
         })
         .catch(err => {
             res.status(500).send({
