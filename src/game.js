@@ -2,22 +2,18 @@ const fs = require('fs')
 const readWords = require('./word-reader.js')
 
 class Game {
-	constructor() {
-		this.index = 1;
-		/*Dictionary.getWord().then(word => this.word = word)*/
-		/*this.word = */
 
-	}	
-
-	static create() {
+	static create(increment,data) {
 		return new Promise((resolve, reject) => {
 		var json = {
-			id: 1,
-        	hint: '_ _ _ _ A',
+			id: increment,
+        	hint: data,
         	leftAttempts: 5
 		}
+		
 
     	if(Object.keys(json).length != 0) {
+    		console.log(json)
 			return resolve(json)		
     	}
     	else {
@@ -26,7 +22,7 @@ class Game {
 		})
 	}	
 
-	static save(data) {
+	static save(data,json) {
 		console.log(data)
 		let map = new Map().set(data['id'],data)
 		var myJsonString = JSON.stringify([...map]);
